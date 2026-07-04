@@ -31,15 +31,9 @@ CCG brings that same core idea into the modern era as a fully open-source projec
 
 This project is licensed under the **Apache License 2.0**.
 
-**Attribution Requirement**\
-If you use this software or substantial portions of it in your own Excel add-in, commercial product, or derivative work, you **must** provide clear and prominent attribution to the original author:
+If you redistribute this software or a derivative of it, the license requires you to keep the [NOTICE](NOTICE) file's attribution to the original author (Angelo Perera) intact.
 
-> Includes CCG (exCel Code Generator) functionality originally developed by Angelo Perera\
-> https://github.com/aceslick911/CCG
-
-This requirement applies even if you modify the code.
-
-See the [NOTICE](NOTICE) file and [LICENSE](LICENSE) for full details.
+See [LICENSE](LICENSE) for full details.
 
 ## Getting Started
 
