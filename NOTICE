@@ -1,0 +1,14 @@
+CCG — exCel Code Generator
+Copyright 2026 Angelo Perera
+
+This product includes software developed by Angelo Perera.
+Original project: https://github.com/aceslick911/CCG
+
+This project is a modern rewrite of the original "Cell Analysis Add-in for Microsoft Excel"
+released as free software in 2013:
+- https://download.cnet.com/cell-analysis-add-in-for-microsoft-excel/3000-2077_4-76037251.html
+- https://www.softpedia.com/get/Office-tools/Other-Office-Tools/Cell-Analysis-Add-in.shtml
+
+If you use this software or substantial portions of it in your own Excel add-in,
+commercial product, or derivative work, you must provide clear attribution to the
+original author (Angelo Perera).
