@@ -8,7 +8,7 @@ It helps users analyze, visualize, and work with complex Excel formulas by rende
 
 This project is a complete rewrite and open-source revival of my earlier free tool:
 
-**Original software (2013):**
+**Original software (2013):**\
 **Cell Analysis Add-in for Microsoft Excel**
 
 - CNET download page: https://download.cnet.com/cell-analysis-add-in-for-microsoft-excel/3000-2077_4-76037251.html
@@ -31,10 +31,10 @@ CCG brings that same core idea into the modern era as a fully open-source projec
 
 This project is licensed under the **Apache License 2.0**.
 
-**Attribution Requirement**
+**Attribution Requirement**\
 If you use this software or substantial portions of it in your own Excel add-in, commercial product, or derivative work, you **must** provide clear and prominent attribution to the original author:
 
-> Includes CCG (exCel Code Generator) functionality originally developed by Angelo Perera
+> Includes CCG (exCel Code Generator) functionality originally developed by Angelo Perera\
 > https://github.com/aceslick911/CCG
 
 This requirement applies even if you modify the code.
@@ -51,7 +51,7 @@ Contributions are very welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) a
 
 ## Author
 
-**Angelo Perera**
+**Angelo Perera**\
 GitHub: [@aceslick911](https://github.com/aceslick911)
 
 ---
