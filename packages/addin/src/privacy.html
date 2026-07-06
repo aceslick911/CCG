@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CCG — Privacy Policy</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #0f1533; }
+    @media (prefers-color-scheme: dark) { body { color: #fff; background: #1e1f24; } a { color: #6ea1ff; } }
+    h1 { font-size: 1.6em; }
+  </style>
+</head>
+<body>
+  <h1>CCG — Privacy Policy</h1>
+  <p><em>Last updated: 6 July 2026</em></p>
+
+  <p><strong>CCG does not collect, store, or transmit your data. Anywhere. Ever.</strong></p>
+
+  <p>CCG (exCel Code Generator) runs entirely inside your Excel client. Formula parsing,
+  analysis, and code generation all happen locally in the add-in's task pane. Your workbook
+  contents, formulas, generated code, and cell values never leave your machine via CCG.</p>
+
+  <h2>Specifics</h2>
+  <ul>
+    <li><strong>No analytics, no telemetry, no tracking</strong> — the add-in contains no
+      analytics code of any kind.</li>
+    <li><strong>No accounts, no sign-in</strong> — CCG has no backend service.</li>
+    <li><strong>Static hosting</strong> — the task pane's files are served from GitHub Pages.
+      GitHub may record standard web-server logs (IP address, user agent) when the pane
+      loads, per <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</li>
+    <li><strong>Office.js</strong> — the Microsoft Office JavaScript library is loaded from
+      Microsoft's CDN, as required for all Office add-ins, per
+      <a href="https://privacy.microsoft.com/privacystatement">Microsoft's privacy statement</a>.</li>
+    <li><strong>Data written to your workbook</strong> — features you explicitly invoke (such
+      as creating LAMBDA named functions) write into the workbook you're editing, and nowhere
+      else.</li>
+  </ul>
+
+  <h2>Open source</h2>
+  <p>CCG's complete source code is public at
+  <a href="https://github.com/aceslick911/CCG">github.com/aceslick911/CCG</a> — you can verify
+  every claim above.</p>
+
+  <h2>Contact</h2>
+  <p>Questions: open an issue on the GitHub repository.</p>
+</body>
+</html>

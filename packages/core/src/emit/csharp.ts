@@ -124,7 +124,10 @@ export const emitCSharpTest = (spec: FunctionSpec): string | undefined => {
   ].join('\n')
 }
 
-export const emitCSharpModule = (result: ExtractResult, options: { withTests?: boolean } = {}): string => {
+export const emitCSharpModule = (
+  result: ExtractResult,
+  options: { withTests?: boolean; onContext?: (ctx: EmitContext) => void } = {}
+): string => {
   const ctx = makeContext(result.target.sheet, result.nameByKey, result.functions)
   const parts = result.functions.map((spec) => emitCSharpFunction(spec, ctx))
   if (options.withTests) {
@@ -135,5 +138,6 @@ export const emitCSharpModule = (result: ExtractResult, options: { withTests?: b
       }
     }
   }
+  options.onContext?.(ctx)
   return parts.join('\n\n')
 }

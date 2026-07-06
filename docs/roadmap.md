@@ -5,16 +5,15 @@ priority within each group.
 
 ## Cleanup / correctness (current code)
 
-- [ ] **LAMBDA-support probe at startup** — evaluate a throwaway LAMBDA when the pane loads;
-      if the engine lacks it, disable "Create LAMBDA name" with a hint (VBA path + link to
-      docs/troubleshooting.md). Hard-won requirement: modern builds can run old feature sets.
+- [x] **LAMBDA-support probe** — probes a temporary hidden sheet before creating names;
+      unsupported engines get an explanation + VBA fallback hint instead of silent #NAME?.
 - [ ] **C# `&` concatenation semantics** — Excel's `&` coerces both sides to text; our C#
       emitter maps it to `+`, which *adds* numbers. Needs a `ToString`/`Convert` wrapper (or
       an explicit shim) when operand types aren't provably strings. Same review for Delphi.
 - [ ] **Percent-literal check** — `50%` in a formula is a *value* (0.5); our `(x / 100)`
       emit is correct, but verify interaction with precedence and LAMBDA passthrough.
-- [ ] **Unknown-function surfacing** — `ctx.unknownFunctions` is collected but never shown.
-      Render a warning strip in the pane ("no mapping for FOO(); emitted verbatim").
+- [x] **Unknown-function surfacing** — emitters expose the context via `onContext`; the pane
+      appends a note listing functions emitted verbatim.
 - [ ] **Range→parameter explosion limits** — ranges expand to individual scalar params
       (limit 1000). Large ranges should become array parameters + a loop in the target
       language instead. (Feeds into the tables→loops feature.)
@@ -22,8 +21,9 @@ priority within each group.
       tests; ours skips non-numeric oracles entirely. Decide and implement.
 - [ ] **Delphi `IfThen` eager evaluation** — matches 2013 semantics but differs from Excel's
       lazy IF; document or emit a real if/else via an out-of-line function.
-- [ ] Real icons (current ones are 1×1 placeholder PNGs), manifest polish (localized
-      strings, better description).
+- [x] Real icons — Lucide `square-function` (ISC) on the CCG tile, generated at
+      16/32/64/80/300 by `packages/addin/scripts/makeIcons.mjs`.
+- [ ] Manifest polish (localized strings, richer description).
 - [ ] `flipbox.css` is vendored from the private web repo — note the sync provenance in the
       file header and re-sync deliberately, not automatically.
 
@@ -55,11 +55,13 @@ What's actually required:
 - [ ] **Excel on the web sideload** — Insert → Add-ins → Upload My Add-in with the manifest
       (needs the hosted URL; web can't reach your localhost dev server from Microsoft's
       side, though same-machine browser testing works).
-- [ ] **Org rollout** — Centralized Deployment via admin center → Integrated apps (works for
-      your whole tenant, no store involvement).
-- [ ] **AppSource (the public store)** — needs a Microsoft Partner Center account, validation
-      pass (working support URL, privacy policy, terms, proper icons, no localhost anywhere),
-      and review turnaround. Do this only once the UX is solid.
+- [ ] **Org rollout** — Centralized Deployment via admin center → Integrated apps. CAVEAT:
+      requires Exchange Online mailboxes for targeted users (assignments are stored in EXO);
+      in a Google-Workspace-first tenant the "Office add-in" app type stays greyed out until
+      at least one EXO licence exists. For such orgs AppSource is the primary channel.
+- [ ] **AppSource (the public store)** — in progress; full checklist, listing drafts, and
+      validator notes in [docs/appsource.md](appsource.md). Repo-side prerequisites are done;
+      remaining: Partner Center enrolment (human), screenshots, prod-manifest validation.
 
 ## Testing
 

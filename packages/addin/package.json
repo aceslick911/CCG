@@ -13,8 +13,10 @@
   "devDependencies": {
     "@types/office-js": "^1.0.598",
     "esbuild": "^0.28.1",
+    "lucide-static": "^0.577.0",
     "office-addin-dev-certs": "^2.0.9",
-    "office-addin-manifest": "^2.1.5"
+    "office-addin-manifest": "^2.1.5",
+    "sharp": "^0.35.3"
   },
   "dependencies": {
     "@ccg/core": "^0.1.0"

@@ -77,7 +77,9 @@ const refreshSelection = async (): Promise<void> => {
     selected = { sheet, ref, formula }
 
     ui.address().textContent = `${sheet}!${ref}`
-    ui.formula().textContent = formula ?? '(no formula in this cell)'
+    ui.formula().textContent = formula ?? 'Select a cell that contains a formula to get started.'
+    ui.generate().disabled = !formula
+    ui.createLambda().disabled = !formula
     if (formula) {
       try {
         ui.tree().textContent = toPrefixNotation(parseFormula(formula))
@@ -165,6 +167,11 @@ const buildSnapshot = async (
   return { cells, classification, targetKey }
 }
 
+const unknownFunctionWarning = (unknown: Set<string>): string =>
+  unknown.size > 0
+    ? `\n\n' NOTE: no native mapping for: ${[...unknown].sort().join(', ')} — emitted verbatim; supply your own implementation.`
+    : ''
+
 const generate = async (): Promise<void> => {
   clearError()
   if (!selected?.formula) {
@@ -177,23 +184,58 @@ const generate = async (): Promise<void> => {
     const result = extractFunctions(makeSnapshot(cells), targetKey, classification)
 
     const lang = ui.lang().value
+    let unknown = new Set<string>()
+    const onContext = (ctx: { unknownFunctions: Set<string> }): void => {
+      unknown = ctx.unknownFunctions
+    }
     let output: string
     if (lang === 'vba') {
-      output = emitVbaModule(result)
+      output = emitVbaModule(result, { onContext })
     } else if (lang === 'csharp') {
-      output = emitCSharpModule(result, { withTests: true })
+      output = emitCSharpModule(result, { withTests: true, onContext })
     } else if (lang === 'delphi') {
-      output = emitDelphiModule(result)
+      output = emitDelphiModule(result, { onContext })
     } else {
       output = emitLambdaNames(result)
         .map((entry) => `${entry.name}\n${entry.formula}`)
         .join('\n\n')
     }
-    ui.output().textContent = output
+    ui.output().textContent = output + unknownFunctionWarning(unknown)
   } catch (err) {
     showError(err)
   } finally {
     ui.generate().disabled = false
+  }
+}
+
+/**
+ * Verify the calc engine actually has LAMBDA before creating names that would #NAME?.
+ * Hard-won: a current build can run an old feature set (stale licence/flight cache — see
+ * docs/troubleshooting.md). Probes on a temporary hidden sheet, which is removed after.
+ */
+const probeLambdaSupport = async (): Promise<boolean> => {
+  try {
+    return await Excel.run(async (context) => {
+      const leftover = context.workbook.worksheets.getItemOrNullObject('__ccg_probe__')
+      await context.sync()
+      if (!leftover.isNullObject) {
+        leftover.delete()
+      }
+      const sheet = context.workbook.worksheets.add('__ccg_probe__')
+      sheet.visibility = Excel.SheetVisibility.hidden
+      const cell = sheet.getRange('A1')
+      cell.formulas = [['=LAMBDA(x, x*2)(21)']]
+      await context.sync()
+      cell.load('values')
+      await context.sync()
+      const supported = cell.values[0]?.[0] === 42
+      sheet.delete()
+      await context.sync()
+      return supported
+    })
+  } catch {
+    // Probe itself failed (protected workbook etc.) — don't block the user on it.
+    return true
   }
 }
 
@@ -206,6 +248,15 @@ const createLambdaNames = async (): Promise<void> => {
   }
   try {
     ui.createLambda().disabled = true
+    if (!(await probeLambdaSupport())) {
+      showError(
+        "This Excel's calculation engine doesn't support LAMBDA yet, so created names would return #NAME?. " +
+          'Use the Visual Basic output instead. If this is a current Microsoft 365 build, see the troubleshooting ' +
+          'guide (github.com/aceslick911/CCG/blob/main/docs/troubleshooting.md) — a licence/policy refresh and a ' +
+          'full double restart of Excel usually restores it.'
+      )
+      return
+    }
     const { cells, classification, targetKey } = await buildSnapshot(selected, ui.chain().checked)
     const result = extractFunctions(makeSnapshot(cells), targetKey, classification)
     const lambdas = emitLambdaNames(result)

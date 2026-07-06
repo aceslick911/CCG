@@ -38,7 +38,12 @@ export const emitLambdaName = (spec: FunctionSpec, ctx: EmitContext): { name: st
 }
 
 /** All functions in dependency order — register each as a workbook Name, earliest first. */
-export const emitLambdaNames = (result: ExtractResult): Array<{ name: string; formula: string }> => {
+export const emitLambdaNames = (
+  result: ExtractResult,
+  options: { onContext?: (ctx: EmitContext) => void } = {}
+): Array<{ name: string; formula: string }> => {
   const ctx = makeContext(result.target.sheet, result.nameByKey, result.functions)
-  return result.functions.map((spec) => emitLambdaName(spec, ctx))
+  const names = result.functions.map((spec) => emitLambdaName(spec, ctx))
+  options.onContext?.(ctx)
+  return names
 }

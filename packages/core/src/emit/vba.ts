@@ -114,13 +114,19 @@ export const emitVbaFunction = (spec: FunctionSpec, ctx: EmitContext): string =>
   return lines.join('\n')
 }
 
+export type EmitModuleOptions = {
+  /** Called with the emit context after generation — inspect usedShims / unknownFunctions. */
+  onContext?: (ctx: EmitContext) => void
+}
+
 /** Whole extraction → module text: shims first (only the ones used), then functions in dependency order. */
-export const emitVbaModule = (result: ExtractResult): string => {
+export const emitVbaModule = (result: ExtractResult, options: EmitModuleOptions = {}): string => {
   const ctx = makeContext(result.target.sheet, result.nameByKey, result.functions)
   const functions = result.functions.map((spec) => emitVbaFunction(spec, ctx))
   const shims = [...ctx.usedShims]
     .sort()
     .map((shim) => VBA_SHIMS[shim])
     .filter((s): s is string => s !== undefined)
+  options.onContext?.(ctx)
   return [...shims, ...functions].join('\n\n')
 }

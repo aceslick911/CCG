@@ -79,7 +79,12 @@ export const emitDelphiFunction = (spec: FunctionSpec, ctx: EmitContext): string
   return lines.join('\n')
 }
 
-export const emitDelphiModule = (result: ExtractResult): string => {
+export const emitDelphiModule = (
+  result: ExtractResult,
+  options: { onContext?: (ctx: EmitContext) => void } = {}
+): string => {
   const ctx = makeContext(result.target.sheet, result.nameByKey, result.functions)
-  return result.functions.map((spec) => emitDelphiFunction(spec, ctx)).join('\n\n')
+  const parts = result.functions.map((spec) => emitDelphiFunction(spec, ctx))
+  options.onContext?.(ctx)
+  return parts.join('\n\n')
 }
