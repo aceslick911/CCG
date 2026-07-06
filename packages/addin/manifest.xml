@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+  xsi:type="TaskPaneApp">
+
+  <Id>7c1b4a9e-8f2d-4e6b-a3c5-91d0f2b7e844</Id>
+  <Version>0.1.0</Version>
+  <ProviderName>Angelo Perera</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="CCG - exCel Code Generator" />
+  <Description DefaultValue="Turn Excel formulas into functions: VBA, C#, Delphi and LAMBDA. Open-source revival of the 2013 Cell Analysis Add-in." />
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://github.com/aceslick911/CCG" />
+
+  <Hosts>
+    <Host Name="Workbook" />
+  </Hosts>
+
+  <Requirements>
+    <Sets DefaultMinVersion="1.12">
+      <Set Name="ExcelApi" MinVersion="1.12" />
+    </Sets>
+  </Requirements>
+
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/taskpane.html" />
+  </DefaultSettings>
+
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="Ccg.Group">
+                <Label resid="Ccg.Group.Label" />
+                <Icon>
+                  <bt:Image size="16" resid="Ccg.Icon.16" />
+                  <bt:Image size="32" resid="Ccg.Icon.32" />
+                  <bt:Image size="80" resid="Ccg.Icon.80" />
+                </Icon>
+                <Control xsi:type="Button" id="Ccg.AnalyzeButton">
+                  <Label resid="Ccg.AnalyzeButton.Label" />
+                  <Supertip>
+                    <Title resid="Ccg.AnalyzeButton.Label" />
+                    <Description resid="Ccg.AnalyzeButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Ccg.Icon.16" />
+                    <bt:Image size="32" resid="Ccg.Icon.32" />
+                    <bt:Image size="80" resid="Ccg.Icon.80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>Ccg.Taskpane</TaskpaneId>
+                    <SourceLocation resid="Ccg.Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Ccg.Icon.16" DefaultValue="https://localhost:3000/assets/icon-16.png" />
+        <bt:Image id="Ccg.Icon.32" DefaultValue="https://localhost:3000/assets/icon-32.png" />
+        <bt:Image id="Ccg.Icon.80" DefaultValue="https://localhost:3000/assets/icon-80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Ccg.Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="Ccg.Group.Label" DefaultValue="CCG" />
+        <bt:String id="Ccg.AnalyzeButton.Label" DefaultValue="Analyse Cell" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="Ccg.AnalyzeButton.Tooltip" DefaultValue="Analyse the selected cell and generate code from its formula and precedents." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

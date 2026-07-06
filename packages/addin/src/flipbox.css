@@ -1,0 +1,438 @@
+.flipbox {
+  display: flex;
+  box-sizing: border-box;
+
+  flex-grow: 0;
+  flex-shrink: 1;
+
+  &.paragraph {
+    display: block;
+
+    & > * {
+      display: inline-block;
+    }
+  }
+
+  .anchorReset,
+  & > .anchorReset {
+    text-decoration: none;
+
+    color: var(--color-text, #0f1533);
+    @media (prefers-color-scheme: dark) {
+      color: #ffffff;
+    }
+    .force-dark & {
+      color: #ffffff;
+    }
+    text-decoration: none;
+    cursor: unset;
+  }
+
+  .space-between {
+    justify-content: space-between !important;
+  }
+}
+
+.flipbox.y {
+  flex-direction: column;
+}
+
+.flipbox.x {
+  flex-direction: row;
+}
+
+.flipbox.x.SE {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.flipbox.x.NE {
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.x.NW > .flipbox.y.y-hug {
+  align-self: flex-start;
+}
+
+.flipbox.x.x-hug.W {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flipbox.x.SW {
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.flipbox.x.E {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.flipbox.x.S {
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.flipbox.x.N {
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.flipbox.x.NS {
+  justify-content: center;
+}
+
+.flipbox.x.WE {
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.flipbox.y.SE {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.flipbox.y.W {
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.flipbox.y.SW {
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.flipbox.y.S {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.flipbox.y.E {
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.flipbox.y.NE {
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.flipbox.y.NS {
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.flipbox.y.WE {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flexbox.y > .flipbox.y-fill {
+  place-self: stretch;
+  flex-grow: 1;
+}
+
+.flipbox {
+  flex-basis: auto;
+}
+
+.flipbox.y.N {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flipbox.x > .x-fill {
+  flex-grow: 1;
+  width: unset !important;
+}
+.flipbox.y > .x-fill {
+  width: unset !important;
+}
+
+.flipbox.y > .flipbox.y.y-fill {
+  flex-grow: 1;
+}
+
+.flipbox.x > .flipbox.x.x-fill {
+  flex-grow: 1;
+}
+.flipbox.y > .flipbox.x.y-fill {
+  flex-grow: 1;
+}
+
+.flipbox {
+  &.W,
+  &.SW {
+    align-content: flex-start;
+  }
+
+  &.x.NW.y-fill {
+    flex-wrap: wrap;
+  }
+
+  &.y.NW > .y.x-hug {
+    align-self: flex-start;
+  }
+
+  &.y.NE > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.NE > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.E > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.SE > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.S > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.SW > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.W > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.N > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.NS > .y.x-fill {
+    align-self: stretch;
+  }
+
+  &.y.C > .y.x-fill {
+    align-self: stretch;
+  }
+}
+.x > .x.y-hug.SW,
+.x > .x.y-hug.S {
+  align-self: flex-end;
+}
+
+.x > .x.y-hug.NW,
+.x > .x.y-hug.N,
+.x > .x.y-hug.SE {
+  align-self: flex-start;
+}
+
+.x > .x.y-fill {
+  align-self: stretch;
+}
+
+.flipbox {
+  &.NE > .x-fill {
+    align-self: stretch;
+  }
+
+  &.NE > .x-fill {
+    align-self: stretch;
+  }
+
+  &.E > .x-fill {
+    align-self: stretch;
+  }
+
+  &.SE > .x-fill {
+    align-self: stretch;
+  }
+
+  &.S > .x-fill {
+    align-self: stretch;
+  }
+
+  &.SW > .x-fill {
+    align-self: stretch;
+  }
+
+  &.W > .x-fill {
+    align-self: stretch;
+  }
+
+  &.N > .x-fill {
+    align-self: stretch;
+  }
+
+  &.NS > .x-fill {
+    align-self: stretch;
+  }
+
+  &.C > .x-fill {
+    align-self: stretch;
+  }
+}
+
+.flipbox.nowrap {
+  flex-wrap: nowrap !important;
+}
+
+a.flipbox {
+  overflow-wrap: anywhere !important;
+}
+
+.flipbox.wrap {
+  flex-wrap: wrap !important;
+
+  white-space: pre-wrap;
+  word-break: normal;
+  overflow-wrap: break-word;
+  white-space: break-spaces;
+  white-space-collapse: break-spaces;
+}
+
+.flipbox.text {
+  display: initial !important;
+}
+
+.flipbox.abs {
+  position: absolute;
+}
+
+.flipbox.abs.y.C {
+  justify-content: center;
+}
+
+.flipbox.x.x-fill {
+  & > .flipbox.x.x-fill {
+    flex-grow: 1;
+  }
+}
+
+.flipbox.x.x-fill.y-fill {
+  .flipbox.x.x-fill.y-fill.C {
+    align-items: center;
+  }
+}
+.flipbox.y.x-fill.y-fill.C {
+  .flipbox.x.x-hug.y-hug.C {
+    align-self: center;
+  }
+}
+
+.flipbox.y.x-fixed.y-fill.C {
+  .flipbox.x-hug {
+    align-self: center;
+  }
+}
+
+.x > .flipbox.x.x-fill.W {
+  text-align: left;
+}
+
+.x.x-fill.y-fill.C > .flipboxy.x-fill.y-fill.C {
+  justify-content: center;
+}
+
+.flipbox {
+  &.x.x-hug.y-hug.N,
+  &.x.x-hug.y-hug.C,
+  &.x.x-fixed.y-fixed.C {
+    align-self: center;
+  }
+}
+
+.flipbox {
+  .x.x-fill.y-hug > .x.x-fill.y-fill.E,
+  .x.x-fill.y-hug > .x.x-fill.y-fill.W,
+  .x.x-fill.y-hug > .x.x-fill.y-fill.C {
+    align-content: center;
+  }
+}
+
+.x > .x.y-hug.W,
+.x > .x.y-hug.E {
+  align-self: center;
+}
+
+.x > .x.y-hug.WE {
+  align-self: center;
+}
+
+/* Beta */
+.flipbox.y.x-hug.y-hug.NW > .flipbox.y.x-fill.y-hug.N {
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.flipbox.y.x-fill.y-hug > flipbox.y.x-fill.y-hug.N {
+  align-self: center;
+}
+
+.flipbox.y.x-fill.y-fill.C {
+  align-content: center;
+  flex-wrap: wrap;
+}
+.flipbox.y.x-fill.y-fill.C.nowrap {
+  align-content: stretch;
+  flex-wrap: nowrap;
+}
+
+.flipbox {
+  &.NE,
+  &.E,
+  &.SE {
+    align-content: flex-end;
+  }
+}
+
+.flipbox.x {
+  & > .E.x {
+    align-content: center;
+  }
+}
+
+.flipbox.x {
+  & > .flipbox.x {
+    &.NE.y-hug {
+      align-content: flex-start;
+    }
+  }
+}
+
+.flipbox.y.x-fill.y-fill.N > .flipbox.y.x-fill.y-hug.C {
+  flex-direction: row;
+}
+
+.flipbox.x.x-hug.y-hug.SE > .flipbox.x.x-hug.y-hug.SE {
+  align-self: flex-end;
+}
+
+/* # Beta --- Fixes for Non vertically stretching in verticall hug parents */
+
+.flipbox.y.C,
+.flipbox.x.C {
+  &.x-hug,
+  &.x-fixed,
+  &.y-hug,
+  &.y-fixed {
+    align-items: center;
+    justify-content: center;
+  }
+  &.x-fill,
+  &.y-fill {
+    align-items: stretch;
+  }
+}
+
+.flipbox.y.y-hug.C > .flipbox.x.y-hug.C {
+  align-items: center;
+}
+
+.flipbox.y.y-hug.C > .flipbox.x.y-hug.N {
+  align-items: flex-start;
+}
+
+.flipbox.y.y-hug.C > .flipbox.x.y-hug.S {
+  align-items: flex-end;
+}

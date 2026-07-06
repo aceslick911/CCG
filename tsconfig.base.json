@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    // NEVER CHANGE THIS TO false
+    "noImplicitAny": true, // Take 5 seconds to fix errors caused by this - DISABLING THIS WILL CAUSE DANGEROUS TYPE ASSUMPTIONS
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "sourceMap": true,
+    "skipLibCheck": true
+  }
+}

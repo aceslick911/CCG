@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CCG</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="flipbox.css" />
+  <link rel="stylesheet" href="ccg.css" />
+</head>
+<body>
+  <div class="flipbox y NW x-fill gap-3 pad-3">
+    <div class="flipbox x W x-fill gap-2">
+      <h1 class="ccg-title">CCG</h1>
+      <span class="ccg-hint">exCel Code Generator</span>
+    </div>
+
+    <div class="flipbox y NW x-fill gap-1">
+      <span class="ccg-label">Selected cell</span>
+      <span id="cell-address" class="ccg-cellref">—</span>
+      <pre id="cell-formula" class="ccg-code">Select a cell with a formula</pre>
+    </div>
+
+    <div class="flipbox y NW x-fill gap-1">
+      <span class="ccg-label">Parse tree</span>
+      <pre id="parse-tree" class="ccg-code">—</pre>
+    </div>
+
+    <div class="flipbox y NW x-fill gap-2">
+      <span class="ccg-label">Generate</span>
+      <input id="fn-name" class="ccg-input" placeholder="Function name (e.g. Future_Value)" />
+      <select id="lang" class="ccg-select">
+        <option value="vba">Visual Basic (VBA)</option>
+        <option value="csharp">C#</option>
+        <option value="delphi">Delphi</option>
+        <option value="lambda">Excel LAMBDA</option>
+      </select>
+      <label class="flipbox x W gap-1">
+        <input id="chain" type="checkbox" class="ccg-check" checked />
+        <span>Chain precedent formulas as functions</span>
+      </label>
+      <div class="flipbox x W x-fill gap-2">
+        <button id="generate" class="ccg-button primary" type="button">Generate code</button>
+        <button id="create-lambda" class="ccg-button" type="button">Create LAMBDA name</button>
+      </div>
+    </div>
+
+    <div class="flipbox y NW x-fill gap-1">
+      <div class="flipbox x W x-fill gap-2 space-between">
+        <span class="ccg-label">Output</span>
+        <button id="copy" class="ccg-button" type="button">Copy</button>
+      </div>
+      <pre id="output" class="ccg-code">—</pre>
+    </div>
+
+    <div id="error" class="ccg-error"></div>
+  </div>
+  <script type="module" src="taskpane.js"></script>
+</body>
+</html>

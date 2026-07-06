@@ -1,0 +1,22 @@
+{
+  "name": "@ccg/addin",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && esbuild src/taskpane.ts --bundle --format=esm --outfile=dist/taskpane.js && node scripts/copyAssets.mjs",
+    "certs": "office-addin-dev-certs install",
+    "dev": "npm run build && esbuild src/taskpane.ts --bundle --format=esm --outfile=dist/taskpane.js --watch --servedir=dist --serve=localhost:3000 --keyfile=$HOME/.office-addin-dev-certs/localhost.key --certfile=$HOME/.office-addin-dev-certs/localhost.crt",
+    "sideload": "mkdir -p \"$HOME/Library/Containers/com.microsoft.Excel/Data/Documents/wef\" && cp manifest.xml \"$HOME/Library/Containers/com.microsoft.Excel/Data/Documents/wef/ccg-manifest.xml\""
+  },
+  "devDependencies": {
+    "@types/office-js": "^1.0.598",
+    "esbuild": "^0.28.1",
+    "office-addin-dev-certs": "^2.0.9",
+    "office-addin-manifest": "^2.1.5"
+  },
+  "dependencies": {
+    "@ccg/core": "^0.1.0"
+  }
+}

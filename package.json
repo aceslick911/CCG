@@ -1,0 +1,22 @@
+{
+  "name": "ccg",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @ccg/core && npm run build -w @ccg/addin",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "format": "biome format --write . && biome lint --write --reporter=summary",
+    "check": "biome check --write .",
+    "lint": "biome lint --max-diagnostics=500"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.2",
+    "@types/node": "^25.9.4",
+    "typescript": "^5.9.3"
+  }
+}

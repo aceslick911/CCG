@@ -20,12 +20,30 @@ CCG brings that same core idea into the modern era as a fully open-source projec
 
 ## Features (Current / Planned)
 
-- Formula visualizer with clean mathematical notation
-- Navigate between cells and drill into precedents/dependents
-- Color marking system with option to apply marks back to the worksheet
-- One-click conversion of formulas to C#, Visual Basic, or Delphi code
-- Define variables and functions for cleaner code generation
-- Modern .NET implementation (targeting current Excel / Office Add-in model)
+- **Working now:** parse any cell's formula, walk its precedents, and generate a function
+  from it in **VBA**, **C#**, **Delphi**, or as an **Excel LAMBDA** — chained precedent
+  formulas become chained functions
+- **Working now:** register generated LAMBDAs as workbook names (the modern, macro-free
+  successor to the 2013 add-in's VBA injection) — works on Mac, Windows, and web
+- Formula visualizer with clean mathematical notation *(planned)*
+- Color marking system (Wrong/Right/Changed) *(planned)*
+- Whole-workbook → importable code module with input/output sheets *(planned)*
+- Tables → programming loops (columns as parameters, rows as iterations) *(planned)*
+- Headless CLI for CI codegen from `.xlsx` files *(designed, on ice — see [docs/cli.md](docs/cli.md))*
+
+## Project structure
+
+TypeScript monorepo targeting the current JavaScript Office Add-ins platform — the only
+add-in model Excel on macOS supports. See [coding-style.md](coding-style.md).
+
+- **`packages/core`** (`@ccg/core`) — formula tokenizer + parser (a real Pratt parser with
+  Excel's precedence quirks), plain-data AST, workbook snapshot model with dependency
+  extraction and cycle detection, and one emitter per target language. Pure logic, zero
+  Office.js — tested with `node --test` against golden fixtures from the 2013 add-in
+  (`packages/core/fixtures/2013/`).
+- **`packages/addin`** (`@ccg/addin`) — the Excel task pane (vanilla TypeScript, no
+  framework; layout via vendored FlipBox CSS). Reads cells as plain snapshots, hands them
+  to core, writes generated code and LAMBDA names back.
 
 ## License & Attribution
 
@@ -37,7 +55,35 @@ See [LICENSE](LICENSE) for full details.
 
 ## Getting Started
 
-*(Installation and build instructions will be added once the first working version is ready)*
+Requires Node 20+ and Excel for Microsoft 365 (Mac or Windows).
+
+```sh
+npm install
+npm run build          # compile @ccg/core, typecheck + bundle @ccg/addin
+npm test               # core test suite (node --test)
+```
+
+To run the add-in in Excel on macOS:
+
+```sh
+npm run certs -w @ccg/addin      # one-time: install localhost dev certificates
+npm run dev -w @ccg/addin        # serve the task pane on https://localhost:3000
+npm run sideload -w @ccg/addin   # copy the manifest into Excel's wef folder
+```
+
+Then restart Excel — the **CCG** group with **Analyse Cell** appears on the Home tab
+(if not, check Insert → Add-ins → My Add-ins → Developer Add-ins).
+
+The same add-in runs unchanged in Excel on the web, Windows, and iPad once hosted on a
+public HTTPS URL — see [docs/roadmap.md](docs/roadmap.md) for the distribution plan.
+
+## Troubleshooting
+
+Corporate Microsoft 365 tenants can block web add-ins in several independent, slowly-
+propagating ways (store policy, connected-experiences Cloud Policy, feature-flight caches).
+If the add-in won't appear, the Add-ins pane says "disabled by your IT administrator", or
+LAMBDA returns #NAME? on a current build, see **[docs/troubleshooting.md](docs/troubleshooting.md)**
+— it was earned the hard way.
 
 ## Contributing
 
